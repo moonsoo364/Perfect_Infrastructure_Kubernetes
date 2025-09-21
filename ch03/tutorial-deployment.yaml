@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: photoview-deployment
+
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: photo-view
+  template:
+    metadata:
+      labels:
+        app: photo-view
+        env: stage
+    spec:
+      containers:
+      - image: sampleacrregistry.azurecr.io/photo-view:v1.0
+        name: photoview-container
+        ports:
+          - containerPort: 80
