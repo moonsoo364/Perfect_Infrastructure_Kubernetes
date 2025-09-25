@@ -65,4 +65,34 @@ az acr build --registry $ACR_NAME --image photo-view:v1.0 v1.0/
 ```bash
 az acr repository show-tags -n $ACR_NAME --repository photo-view
 ```
-## 
+## SP 
+SP (Service Principle) 은 Azure 리소스에 접근할 수 있도록 하는 보안 주체
+
+- 프로그램, 애플리케이션, 스크립트는 사용자 계정으로 로그인하기 어려우므로 대신 Service Principal이라는 특수한 계정을 발급받아 사용한다.
+- SP는 Azure AD 애플리케이션과 연결되며 Azure에서 리소스 접근을 위한 역할을 부여받아 사용한다.
+
+### SP 특징
+- ID, 암호 기반으로 인증
+- 권한 최소화 원칙 : 필요한 리소스에만 Role을 부여한다.
+- 자동화 CI/CD 환경에서 주로 사용 (AKS. GitHub Actions, Jenkins)
+
+### SP 명령어
+SP 생성
+
+```bash
+ az ad sp create-for-rbac --name $SP_NAME --role Reader --scopes ${app_id} --query password --output tsv
+```
+
+SP 조회
+
+```bash
+az ad sp list --display-name $SP_NAME
+```
+```
+SP 삭제
+
+```bash
+az ad sp delete --id=
+```
+## AKS
+AKS(Azure Kubernetes Service) 는 Azure에서 사용할 수 있는 쿠버네티스 서비스이다.
